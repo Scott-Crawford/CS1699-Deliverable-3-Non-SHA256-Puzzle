@@ -14,15 +14,18 @@ public class LaboonHash{
         if(args.length==2&&!args[1].equals("-verbose")){
             usage();
         }
-        else{
+        else if(args.length==2&&args[1].equals("-verbose")){
             verbose = true;
         }
         char[] lhs = initVector.toCharArray();
         String paddedString = padding(args[0]);
         int count = 0;
+        ArrayList<String> blocks = new ArrayList<String>();
+        ArrayList<String> hashes = new ArrayList<String>();
         while(count!=paddedString.length()){
             char[] rhs = paddedString.substring(count, count+8).toCharArray();
-            System.out.println(rhs);
+            blocks.add(new String(rhs));
+            hashes.add(new String(lhs));
             int[] result = new int[4];
             result = partOne(lhs, rhs);
             result = partTwo(result, rhs);
@@ -31,10 +34,22 @@ public class LaboonHash{
             for(int i=0;i<4;i++){
                 resultChar[i] = Integer.toHexString(result[i]%16).toUpperCase().toCharArray()[0];
             }
-            System.out.println(resultChar);
             lhs = resultChar;
             count+=8;
         }
+        hashes.add(new String(lhs));
+        if(verbose){
+            System.out.println("\tPadded string: "+paddedString);
+            System.out.println("\tBlocks:");
+            for(int i = 0; i<blocks.size();i++){
+                System.out.println("\t"+blocks.get(i));
+            }
+            for(int i = 0; i<blocks.size();i++){
+                System.out.println("\tIterating with "+ hashes.get(i) +" / "+ blocks.get(i) +" = "+ hashes.get(i+1));
+            }
+            System.out.println("\tFinal result: "+hashes.get(hashes.size()-1));
+        }
+        System.out.println("LaboonHash hash = "+hashes.get(hashes.size()-1));
     }
     
     private static void usage(){
