@@ -22,6 +22,13 @@ public class LaboonHash{
         System.out.println("LaboonHash hash = "+hash);
     }
     
+    /**
+     * Given some String input, strengthen and hash it. Can also show work being done.
+     * Example: A -> A0000001 -> 1310
+     * @param String input made of printable ASCII characters, boolean determining whether work should be printed out
+     * @return String that is 4 character hexadecimal hash of input
+     */
+
     public static String c(String input, boolean verbose){
         char[] lhs = initVector.toCharArray();
         String paddedString = padding(input);
@@ -107,6 +114,3 @@ public class LaboonHash{
         return result;
     }
 }
-     
-
-
