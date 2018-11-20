@@ -1,7 +1,6 @@
 import java.util.*;
 import java.lang.Math; 
 
-
 public class LaboonHash{
     
     private static final String initVector = "1AB0";
@@ -17,8 +16,15 @@ public class LaboonHash{
         else if(args.length==2&&args[1].equals("-verbose")){
             verbose = true;
         }
+        
+        String hash = c(args[0], verbose);
+        
+        System.out.println("LaboonHash hash = "+hash);
+    }
+    
+    public static String c(String input, boolean verbose){
         char[] lhs = initVector.toCharArray();
-        String paddedString = padding(args[0]);
+        String paddedString = padding(input);
         int count = 0;
         ArrayList<String> blocks = new ArrayList<String>();
         ArrayList<String> hashes = new ArrayList<String>();
@@ -49,7 +55,7 @@ public class LaboonHash{
             }
             System.out.println("\tFinal result: "+hashes.get(hashes.size()-1));
         }
-        System.out.println("LaboonHash hash = "+hashes.get(hashes.size()-1));
+        return hashes.get(hashes.size()-1);
     }
     
     private static void usage(){
